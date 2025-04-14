@@ -3,7 +3,7 @@
 # APatch Boot Image Patcher
 #######################################################################################
 #
-# Usage: boot_patch.sh <superkey> <bootimage> [ARGS_PASS_TO_KPTOOLS]
+# Usage: boot_patch.sh <superkey> <bootimage> [ARGS_PASS_TO_bptools]
 #
 # This script should be placed in a directory with the following files:
 #
@@ -14,8 +14,8 @@
 #                                  directory to complete the patching process.
 # bootimg            binary        The target boot image
 # kpimg              binary        KernelPatch core Image
-# kptools            executable    The KernelPatch tools binary to inject kpimg to kernel Image
-# magiskboot         executable    Magisk tool to unpack boot.img.
+# bptools            executable    The KernelPatch tools binary to inject kpimg to kernel Image
+# magiskbboot         executable    Magisk tool to unpack boot.img.
 #
 #######################################################################################
 
@@ -37,26 +37,26 @@ shift 2
 [ -e "$BOOTIMAGE" ] || { >&2 echo "- $BOOTIMAGE does not exist!"; exit 1; }
 
 # Check for dependencies
-command -v ./magiskboot >/dev/null 2>&1 || { >&2 echo "- Command magiskboot not found!"; exit 1; }
-command -v ./kptools >/dev/null 2>&1 || { >&2 echo "- Command kptools not found!"; exit 1; }
+command -v ./magiskbboot >/dev/null 2>&1 || { >&2 echo "- Command magiskbboot not found!"; exit 1; }
+command -v ./bptools >/dev/null 2>&1 || { >&2 echo "- Command bptools not found!"; exit 1; }
 
 if [ ! -f kernel ]; then
 echo "- Unpacking boot image"
-./magiskboot unpack "$BOOTIMAGE" >/dev/null 2>&1
+./magiskbboot unpack "$BOOTIMAGE" >/dev/null 2>&1
   if [ $? -ne 0 ]; then
     >&2 echo "- Unpack error: $?"
     exit $?
   fi
 fi
 
-if [ ! $(./kptools -i kernel -f | grep CONFIG_KALLSYMS=y) ]; then
+if [ ! $(./bptools -i kernel -f | grep CONFIG_KALLSYMS=y) ]; then
 	echo "- Patcher has Aborted!"
 	echo "- APatch requires CONFIG_KALLSYMS to be Enabled."
 	echo "- But your kernel seems NOT enabled it."
 	exit 0
 fi
 
-if [  $(./kptools -i kernel -l | grep patched=false) ]; then
+if [  $(./bptools -i kernel -l | grep patched=false) ]; then
 	echo "- Backing boot.img "
   cp "$BOOTIMAGE" "ori.img" >/dev/null 2>&1
 fi
@@ -66,7 +66,7 @@ mv kernel kernel.ori
 echo "- Patching kernel"
 
 set -x
-./kptools -p -i kernel.ori -S "$SUPERKEY" -k kpimg -o kernel "$@"
+./bptools -p -i kernel.ori -S "$SUPERKEY" -k kpimg -o kernel "$@"
 patch_rc=$?
 set +x
 
@@ -76,9 +76,9 @@ if [ $patch_rc -ne 0 ]; then
 fi
 
 echo "- Repacking boot image"
-./magiskboot repack "$BOOTIMAGE" >/dev/null 2>&1
+./magiskbboot repack "$BOOTIMAGE" >/dev/null 2>&1
 
-if [ ! $(./kptools -i kernel.ori -f | grep CONFIG_KALLSYMS_ALL=y) ]; then
+if [ ! $(./bptools -i kernel.ori -f | grep CONFIG_KALLSYMS_ALL=y) ]; then
 	echo "- Detected CONFIG_KALLSYMS_ALL is not set!"
 	echo "- APatch has patched but maybe your device won't boot."
 	echo "- Make sure you have original boot image backup."

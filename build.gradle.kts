@@ -50,6 +50,7 @@ fun getVersionName(): String {
     return getGitDescribe()
 }
 
+
 tasks.register("printVersion") {
     doLast {
         println("Version code: $managerVersionCode")

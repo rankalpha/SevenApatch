@@ -2,7 +2,7 @@
 <resources>
     <string name="apm">APModule</string>
     <string name="super_key">SuperKey</string>
-    <string name="app_name" translatable="false">APatch</string>
+    <string name="app_name" translatable="false">Seven7</string>
     <string name="patch_warnning">La instalación conlleva riesgos. Por favor, asegúrate de tener una copia de seguridad de tus datos.</string>
     <string name="home">Inicio</string>
     <string name="reboot_download">Reiniciar en modo download</string>

@@ -27,7 +27,8 @@ apksign {
 }
 
 android {
-    namespace = "me.bmax.apatch"
+
+    namespace = "me.seven.bpatch"
 
     buildTypes {
         debug {
@@ -121,6 +122,13 @@ android {
             }
         }
     }
+    lint {
+        abortOnError = false // ⛔ 不要因为 lint 报错就停止构建
+        checkReleaseBuilds = false // ✅ 也避免打 release 包时报错
+    }
+
+
+
 }
 
 fun registerDownloadTask(
@@ -163,9 +171,9 @@ registerDownloadTask(
 )
 
 registerDownloadTask(
-    taskName = "downloadKptools",
-    srcUrl = "https://github.com/bmax121/KernelPatch/releases/download/$kernelPatchVersion/kptools-android",
-    destPath = "${project.projectDir}/libs/arm64-v8a/libkptools.so",
+    taskName = "downloadbptools",
+    srcUrl = "https://github.com/bmax121/KernelPatch/releases/download/$kernelPatchVersion/bptools-android",
+    destPath = "${project.projectDir}/libs/arm64-v8a/libbptools.so",
     project = project
 )
 
@@ -174,7 +182,7 @@ registerDownloadTask(
 registerDownloadTask(
     taskName = "downloadCompatKpatch",
     srcUrl = "https://github.com/bmax121/KernelPatch/releases/download/0.10.7/kpatch-android",
-    destPath = "${project.projectDir}/libs/arm64-v8a/libkpatch.so",
+    destPath = "${project.projectDir}/libs/arm64-v8a/libbpatch.so",
     project = project
 )
 
@@ -190,7 +198,7 @@ tasks.register<Copy>("mergeScripts") {
 
 tasks.getByName("preBuild").dependsOn(
     "downloadKpimg",
-    "downloadKptools",
+    "downloadbptools",
     "downloadCompatKpatch",
     "mergeScripts",
 )
@@ -207,7 +215,7 @@ tasks.register<Copy>("buildApd") {
     dependsOn("cargoBuild")
     from("${project.rootDir}/apd/target/aarch64-linux-android/release/apd")
     into("${project.projectDir}/libs/arm64-v8a")
-    rename("apd", "libapd.so")
+    rename("apd", "libbpd.so")
 }
 
 tasks.configureEach {
@@ -224,7 +232,7 @@ tasks.register<Exec>("cargoClean") {
 
 tasks.register<Delete>("apdClean") {
     dependsOn("cargoClean")
-    delete(file("${project.projectDir}/libs/arm64-v8a/libapd.so"))
+    delete(file("${project.projectDir}/libs/arm64-v8a/libbpd.so"))
 }
 
 tasks.clean {

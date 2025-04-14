@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">APatch</string>
+    <string name="app_name" translatable="false">Seven7</string>
     <string name="home">হোম</string>
     <string name="kernel_patch">কার্নেলপ্যাচ</string>
     <string name="android_patch">অ্যান্ড্রয়েডপ্যাচ</string>
@@ -34,7 +34,7 @@
     <string name="home_auth_key_desc">প্রত্যয়িতকরণের পরে কাজ শুরু করুন</string>
     <string name="home_installing">ইনস্টলরত</string>
     <string name="home_need_update">নতুন সংস্করণ উপলভ্য</string>
-    <string name="kpatch_version">সংস্করণ %d.%d.%d</string>
+    <string name="kpatch_version">সংস্করণ %s</string>
     <string name="home_not_installed">ইন্সটল করা নেই</string>
     <string name="home_ap_cando_install">ইনস্টল করুন</string>
     <string name="patch_title">প্যাচ</string>

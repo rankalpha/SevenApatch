@@ -21,7 +21,7 @@ The patching of Android kernel and Android system.
 
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/me.bmax.apatch/)
+     height="80">](https://f-droid.org/packages/me.seven.bpatch/)
 
 Or download the latest APK from the [Releases Section](https://github.com/bmax121/APatch/releases/latest).
 
@@ -80,7 +80,7 @@ Furthermore, we need more volunteers to [contribute to the documentation](https:
 ## Credits
 
 - [KernelPatch](https://github.com/bmax121/KernelPatch/): The core.
-- [Magisk](https://github.com/topjohnwu/Magisk): magiskboot and magiskpolicy.
+- [Magisk](https://github.com/topjohnwu/Magisk): magiskbboot and magiskpolicy.
 - [KernelSU](https://github.com/tiann/KernelSU): App UI, and Magisk module like support.
 
 ## License

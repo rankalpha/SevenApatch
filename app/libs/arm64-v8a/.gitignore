@@ -1,4 +1,4 @@
-libkptools.so
+libbptools.so
 libapjni.so
-libkpatch.so
-libapd.so
+libbpatch.so
+libbpd.so
