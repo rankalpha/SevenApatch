@@ -172,7 +172,7 @@ registerDownloadTask(
 
 registerDownloadTask(
     taskName = "downloadbptools",
-    srcUrl = "https://github.com/bmax121/KernelPatch/releases/download/$kernelPatchVersion/bptools-android",
+    srcUrl = "https://github.com/bmax121/KernelPatch/releases/download/$kernelPatchVersion/kptools-android",
     destPath = "${project.projectDir}/libs/arm64-v8a/libbptools.so",
     project = project
 )
